@@ -18,6 +18,7 @@ public class UI_Manager : MonoBehaviour
     public Image qr4;
 
     public Text pickUpText;
+    public Text interactText;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,6 +30,7 @@ public class UI_Manager : MonoBehaviour
         qr4.gameObject.SetActive(false);
 
         pickUpText.gameObject.SetActive(false);
+        interactText.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
