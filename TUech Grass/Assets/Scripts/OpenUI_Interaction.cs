@@ -7,9 +7,8 @@ using StarterAssets;
 public class OpenUI_Interaction : MonoBehaviour
 {
     public Text interactText;
-    public Canvas mainUI;
-    public Canvas newUI;
-    private Boolean menuOpen = false;
+    public Canvas uI;
+    private bool menuOpen = false;
 
     public FirstPersonController fps;
     
@@ -21,15 +20,12 @@ public class OpenUI_Interaction : MonoBehaviour
 
             menuOpen = false;
 
-            Time.timeScale = 1;
-
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
             fps.enabled = true;
 
-            mainUI.gameObject.SetActive(true);
-            newUI.gameObject.SetActive(false);
+            uI.gameObject.SetActive(false);
                 
         }
     }
@@ -46,16 +42,13 @@ public class OpenUI_Interaction : MonoBehaviour
                 interactText.gameObject.SetActive(false);
 
                 menuOpen = true;
-                
-                Time.timeScale = 0;
 
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
 
                 fps.enabled = false;
 
-                mainUI.gameObject.SetActive(false);
-                newUI.gameObject.SetActive(true);
+                uI.gameObject.SetActive(true);
                 
             }
         }

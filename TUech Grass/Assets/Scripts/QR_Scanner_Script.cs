@@ -11,7 +11,7 @@ public class QR_Scanner_Script : MonoBehaviour
 
     public GameObject window;
 
-    private Boolean validQR = true;
+    private bool validQR = true;
 
     public void Scan() {
         for(int i = 0; i < qrPieces.Length; i++) {
