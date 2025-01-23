@@ -51,35 +51,42 @@ public class PlayerInventory : MonoBehaviour
 
 
     void Update()
-    {
-   
-        if (Input.GetKeyDown(throwItemKey) && inventoryList.Count > 1)
         {
-            Instantiate(itemInstantiate[inventoryList[selectedItem]], position: throwObject_gameobject.transform.position, new Quaternion());
-            inventoryList.RemoveAt(selectedItem);
+   
+            if (Input.GetKeyDown(throwItemKey) && inventoryList.Count > 0)
+        {
+                Instantiate(itemInstantiate[inventoryList[selectedItem]], position: throwObject_gameobject.transform.position, new Quaternion());
+                inventoryList.RemoveAt(selectedItem);
 
-            if (selectedItem != 0)
+            if (inventoryList.Count == 0)
+                {
+                selectedItem = 0; // Reset selected item if inventory is empty
+            }
+            else if (selectedItem != 0)
             {
-                selectedItem -= 1;
+                selectedItem -= 1; // Move selection back if needed
             }
             NewItemSelected();
         }
+
+
 
         if (Input.GetButton("Fire1"))
         {;
         }
 
-        for (int i = 0; i < 8; i++)
+       for (int i = 0; i < inventorySlotImage.Length; i++)
         {
             if (i < inventoryList.Count)
             {
-                inventorySlotImage[i].sprite = itemSetActive[inventoryList[i]].GetComponent<Item>().itemScriptableObject.item_sprite;
+               inventorySlotImage[i].sprite = itemSetActive[inventoryList[i]].GetComponent<ItemPickable>().itemScriptableObject.item_sprite;
             }
-            else
-           {
-               inventorySlotImage[i].sprite = SlotImage;
+             else
+            {
+                 inventorySlotImage[i].sprite = SlotImage;
             }
-        }
+        }           
+
 
         int a = 0;
         foreach(Image image in inventoryBackgroundImage)
@@ -98,83 +105,94 @@ public class PlayerInventory : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
 
-        if (Physics.Raycast(ray, out hitInfo, playerReach) && Input.GetKey(pickUpItemKey))
+        if (Physics.Raycast(ray, out hitInfo, playerReach))
+{
+    IPickable item = hitInfo.collider.GetComponent<IPickable>();
+    if (item != null)
+    {
+        pressToPickup_gameobject.SetActive(true);
+        if (Input.GetKey(pickUpItemKey))
         {
-            IPickable item = hitInfo.collider.GetComponent<IPickable>();
-            if (item != null)
-            {
-                pressToPickup_gameobject.SetActive(true);
-                inventoryList.Add(hitInfo.collider.GetComponent<ItemPickable>().itemScriptableObject.item_type);
-                item.PickItem();
-            }
-            else
-            {
-                pressToPickup_gameobject.SetActive(false);
-            }
-        }
-        else
-        {
-            pressToPickup_gameobject.SetActive(false);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha1) && inventoryList.Count > 0)
-        {
-            selectedItem = 0;
-            NewItemSelected();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2) && inventoryList.Count > 1)
-        {
-            selectedItem = 1;
-            NewItemSelected();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3) && inventoryList.Count > 2)
-        {
-            selectedItem = 2;
-            NewItemSelected();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4) && inventoryList.Count > 3)
-        {
-            selectedItem = 3;
-            NewItemSelected();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5) && inventoryList.Count > 4)
-        {
-            selectedItem = 4;
-            NewItemSelected();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6) && inventoryList.Count > 5)
-        {
-            selectedItem = 5;
-            NewItemSelected();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7) && inventoryList.Count > 6)
-        {
-            selectedItem = 6;
-            NewItemSelected();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8) && inventoryList.Count > 7)
-        {
-            selectedItem = 7;
-            NewItemSelected();
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9) && inventoryList.Count > 8)
-        {
-            selectedItem = 8;
-            NewItemSelected();
+            inventoryList.Add(hitInfo.collider.GetComponent<ItemPickable>().itemScriptableObject.item_type);
+            item.PickItem();
         }
     }
-
-
-    private void NewItemSelected()
+    else
     {
-        donutpink_item.SetActive(false);
-        donutbrown_item.SetActive(false);
-        burger_item.SetActive(false);
-        
+        pressToPickup_gameobject.SetActive(false);
+    }
+}
+else
+{
+    pressToPickup_gameobject.SetActive(false);
+}
+
+
+       if (Input.GetKeyDown(KeyCode.Alpha1) && inventoryList.Count > 0)
+{
+    selectedItem = 0;
+    NewItemSelected();
+}
+else if (Input.GetKeyDown(KeyCode.Alpha2) && inventoryList.Count > 1)
+{
+    selectedItem = 1;
+    NewItemSelected();
+}
+else if (Input.GetKeyDown(KeyCode.Alpha3) && inventoryList.Count > 2)
+{
+    selectedItem = 2;
+    NewItemSelected();
+}
+else if (Input.GetKeyDown(KeyCode.Alpha4) && inventoryList.Count > 3)
+{
+    selectedItem = 3;
+    NewItemSelected();
+}
+else if (Input.GetKeyDown(KeyCode.Alpha5) && inventoryList.Count > 4)
+{
+    selectedItem = 4;
+    NewItemSelected();
+}
+else if (Input.GetKeyDown(KeyCode.Alpha6) && inventoryList.Count > 5)
+{
+    selectedItem = 5;
+    NewItemSelected();
+}
+else if (Input.GetKeyDown(KeyCode.Alpha7) && inventoryList.Count > 6)
+{
+    selectedItem = 6;
+    NewItemSelected();
+}
+else if (Input.GetKeyDown(KeyCode.Alpha8) && inventoryList.Count > 7)
+{
+    selectedItem = 7;
+    NewItemSelected();
+}
+else if (Input.GetKeyDown(KeyCode.Alpha9) && inventoryList.Count > 8)
+{
+    selectedItem = 8;
+    NewItemSelected();
+}
+
+}
+
+private void NewItemSelected()
+{
+    foreach (var item in itemSetActive.Values)
+    {
+        item.SetActive(false);
+    }
+
+    if (inventoryList.Count > 0)
+    {
         GameObject selectedItemGameobject = itemSetActive[inventoryList[selectedItem]];
         selectedItemGameobject.SetActive(true);
     }
 }
+
+}
+
+
 
 public interface IPickable
 {
