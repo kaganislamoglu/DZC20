@@ -6,6 +6,9 @@ TagManager:
   tags:
   - CinemachineTarget
   - Ball
+  - Burger
+  - DonutPink
+  - DonutBrown
   layers:
   - Default
   - TransparentFX
