@@ -8,11 +8,11 @@ public class Generate_Curve : MonoBehaviour
     private MeshCollider mc;
     private Mesh mesh;
 
-    public float a = 0.2f;
+    public float a = 2f;
     public float b = 0f;
-    public float c = 0.5f;
-    public float leftBound = -3f;
-    public float rightBound = 3f;
+    public float c = 5f;
+    public float leftBound = -30f;
+    public float rightBound = 30f;
     private float stepSize = 0.1f;
     private int steps;
     private float curveThickness = 0.1f;
@@ -20,7 +20,7 @@ public class Generate_Curve : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        steps = (int)Math.Round((rightBound-leftBound)/stepSize);
+        steps = (int)Math.Round((rightBound/10-leftBound/10)/stepSize);
 
         mesh = new Mesh();
         mesh.name = "Curve";
@@ -45,11 +45,11 @@ public class Generate_Curve : MonoBehaviour
 
         for(int i = 0; i <= steps; i++) {
 
-            float x = leftBound + (i * stepSize);
-            float y = (float)((a * Math.Pow(x,2)) + (b * x) + c);
+            float x = leftBound/10 + (i * stepSize);
+            float y = (float)((a * Math.Pow(x,2)) + (b/10 * x) + c/10);
 
             float dx = 1;
-            float dy = (float)(2 * a * x + b);
+            float dy = (float)(2 * a * x + b/10);
 
             Vector2 tangent = new Vector2(dx, dy).normalized;
 
@@ -58,11 +58,11 @@ public class Generate_Curve : MonoBehaviour
             // x is on z cause thats how the curve is positioned in the world;
             Vector3 offset = new Vector3(normal.x, normal.y, 0) * curveThickness;
 
-            verts[2 * i] = new Vector3(x, y, 0);
-            verts[2 * i + 1] = new Vector3(x, y, 1);
+            verts[2 * i] = new Vector3(x, y, -0.5f);
+            verts[2 * i + 1] = new Vector3(x, y, 0.5f);
 
-            verts[(steps + 1) * 2 + 2 * i] = new Vector3(x, y, 0) - offset;
-            verts[(steps + 1) * 2 + 2 * i + 1] = new Vector3(x, y, 1) - offset;
+            verts[(steps + 1) * 2 + 2 * i] = new Vector3(x, y, -0.5f) - offset;
+            verts[(steps + 1) * 2 + 2 * i + 1] = new Vector3(x, y, 0.5f) - offset;
         }
 
         return verts;
@@ -151,7 +151,7 @@ public class Generate_Curve : MonoBehaviour
         leftBound = newLeftBound;
         rightBound = newRightBound;
 
-        steps = (int)Math.Round((rightBound-leftBound)/stepSize);
+        steps = (int)Math.Round((rightBound/10-leftBound/10)/stepSize);
 
         mesh = new Mesh();
         mesh.name = "Curve";
