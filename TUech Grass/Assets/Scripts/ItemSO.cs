@@ -12,4 +12,4 @@ public class ItemSO : ScriptableObject
     public Sprite item_sprite;
 }
 
-public enum itemType { DonutPink, DonutBrown, Burger };
+public enum itemType { DonutPink, DonutBrown, Burger, FlashLight };

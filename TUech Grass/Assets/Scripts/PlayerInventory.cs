@@ -24,11 +24,14 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] GameObject donutpink_item;
     [SerializeField] GameObject donutbrown_item;
     [SerializeField] GameObject burger_item;
+    [SerializeField] GameObject flash_item;
+
 
     [Header("Item prefabs")]
     [SerializeField] GameObject donutpink_prefab;
     [SerializeField] GameObject donutbrown_prefab;
     [SerializeField] GameObject burger_prefab;
+    [SerializeField] GameObject flash_prefab;
 
     private Dictionary<itemType, GameObject> itemSetActive = new Dictionary<itemType, GameObject>();
     private Dictionary<itemType, GameObject> itemInstantiate = new Dictionary<itemType, GameObject>();
@@ -38,10 +41,12 @@ public class PlayerInventory : MonoBehaviour
         itemSetActive.Add(itemType.DonutPink, donutpink_item);
         itemSetActive.Add(itemType.DonutBrown, donutbrown_item);
         itemSetActive.Add(itemType.Burger, burger_item);
+        itemSetActive.Add(itemType.FlashLight, flash_item);
 
         itemInstantiate.Add(itemType.DonutPink, donutpink_prefab);
         itemInstantiate.Add(itemType.DonutBrown, donutbrown_prefab);
         itemInstantiate.Add(itemType.Burger, burger_prefab);
+        itemInstantiate.Add(itemType.FlashLight, flash_prefab);
 
         NewItemSelected();
     }
