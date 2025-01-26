@@ -10,8 +10,11 @@ public class QR_Scanner_Script : MonoBehaviour
     public Image[] qrPieces;
 
     public GameObject window;
+    public GameObject fullQR;
 
     private bool validQR = true;
+
+    private bool firstOpen = true;
 
     public void Scan() {
         for(int i = 0; i < qrPieces.Length; i++) {
@@ -31,6 +34,10 @@ public class QR_Scanner_Script : MonoBehaviour
     }
 
     void OnEnable() {
+        if(firstOpen) {
+            firstOpen = false;
+                fullQR.SetActive(true);
+        }
         errorText.gameObject.SetActive(false);
         victoryText.gameObject.SetActive(false);
         validQR = true;

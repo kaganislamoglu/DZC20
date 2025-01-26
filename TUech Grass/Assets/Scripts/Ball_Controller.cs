@@ -11,6 +11,9 @@ public class Ball_Controller : MonoBehaviour
     public GameObject nextTarget;
     public GameObject startButton;
     public GameObject resetButton;
+    public GameObject glass;
+    public GameObject matrixPiece;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -39,7 +42,8 @@ public class Ball_Controller : MonoBehaviour
             gameObject.SetActive(false);
         }
         else {
-            print("all done");
+            glass.SetActive(false);
+            matrixPiece.GetComponent<Matrix_Interact>().pickupable = true;
             thisTarget.SetActive(false);
             gameObject.SetActive(false);
         }

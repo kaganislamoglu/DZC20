@@ -24,7 +24,7 @@ public class Math_Function_Script : MonoBehaviour
         
         float a, b, c, l, r;
 
-        // Validate and parse inputs
+        
         if (!float.TryParse(aInput.text, out a) ||
             !float.TryParse(bInput.text, out b) ||
             !float.TryParse(cInput.text, out c) ||

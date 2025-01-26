@@ -55,7 +55,6 @@ public class Generate_Curve : MonoBehaviour
 
             Vector2 normal = new Vector2(-tangent.y, tangent.x);
 
-            // x is on z cause thats how the curve is positioned in the world;
             Vector3 offset = new Vector3(normal.x, normal.y, 0) * curveThickness;
 
             verts[2 * i] = new Vector3(x, y, -0.5f);

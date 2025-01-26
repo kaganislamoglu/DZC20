@@ -18,18 +18,16 @@ public class UI_Manager : MonoBehaviour
     public Image qr4;
 
     public Text pickUpText;
+    public Text pickUpText2;
     public Text interactText;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        qr1.gameObject.SetActive(false);
-        qr2.gameObject.SetActive(false);
-        qr3.gameObject.SetActive(false);
-        qr4.gameObject.SetActive(false);
-
         pickUpText.gameObject.SetActive(false);
+        pickUpText2.gameObject.SetActive(false);
+
         interactText.gameObject.SetActive(false);
     }
 
@@ -55,10 +53,6 @@ public class UI_Manager : MonoBehaviour
 
         }
         else {
-            qr1.gameObject.SetActive(true);
-            qr2.gameObject.SetActive(true);
-            qr3.gameObject.SetActive(true);
-            qr4.gameObject.SetActive(true);
             this.enabled = false;
         }
     }
